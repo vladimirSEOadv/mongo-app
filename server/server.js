@@ -71,3 +71,14 @@ app.delete(`/${COLLECTION}/:id`, (req, res) => {
     handleError(res, "Wrong id");
   }
 });
+
+app.post(`/${COLLECTION}`, (req, res) => {
+  db.collection(COLLECTION)
+    .insertOne(req.body)
+    .then((result) =>
+      res
+        .status(201) // 201 статус означающий успешное добавление
+        .json(result)
+    )
+    .catch(() => handleError(res, "Something wrong"));
+});
