@@ -54,7 +54,7 @@ app.delete(`/${COLLECTION}/:id`, (req, res) => {
 });
 
 // app.post(`/${COLLECTION}`, (req, res) => {
-//   Product.insertOne(req.body)
+//   Product.create(req.body)
 //     .then((result) =>
 //       res
 //         .status(201) // 201 статус означающий успешное добавление
@@ -64,13 +64,9 @@ app.delete(`/${COLLECTION}/:id`, (req, res) => {
 // });
 //
 // app.patch(`/${COLLECTION}/:id`, (req, res) => {
-//   if (ObjectId.isValid(req.params.id)) {
-//     Product.updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body }) // findOne для получения одного элемента. ObjectId специальная обертка из Mongo
+//     Product.updateOne({ _id: req.params.id }, { $set: req.body }) // findOne для получения одного элемента. ObjectId специальная обертка из Mongo
 //       .then((result) => {
 //         res.status(200).json(result);
 //       })
 //       .catch(() => handleError(res, "Something wrong"));
-//   } else {
-//     handleError(res, "Wrong id");
-//   }
 // });
