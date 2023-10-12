@@ -1,10 +1,6 @@
 const { MongoClient } = require("mongodb");
-
-const dataBaseName = "productsDatabase";
-const login = "admin";
-const password = "XisFUu9AY99Gsue9";
-
-const URL = `mongodb+srv://${login}:${password}@cluster0.zabejws.mongodb.net/${dataBaseName}?retryWrites=true&w=majority`;
+require("dotenv").config();
+const { URL } = require("./constant/constant");
 
 let dbConnection;
 
