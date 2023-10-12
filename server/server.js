@@ -53,15 +53,15 @@ app.delete(`/${COLLECTION}/:id`, (req, res) => {
       .catch(() => handleError(res, "Something wrong"));
 });
 
-// app.post(`/${COLLECTION}`, (req, res) => {
-//   Product.create(req.body)
-//     .then((result) =>
-//       res
-//         .status(201) // 201 статус означающий успешное добавление
-//         .json(result)
-//     )
-//     .catch(() => handleError(res, "Something wrong"));
-// });
+app.post(`/${COLLECTION}`, (req, res) => {
+  Product.create(req.body)
+    .then((result) =>
+      res
+        .status(201) // 201 статус означающий успешное добавление
+        .json(result)
+    )
+    .catch(() => handleError(res, "Something wrong"));
+});
 //
 // app.patch(`/${COLLECTION}/:id`, (req, res) => {
 //     Product.updateOne({ _id: req.params.id }, { $set: req.body }) // findOne для получения одного элемента. ObjectId специальная обертка из Mongo
