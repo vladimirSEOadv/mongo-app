@@ -62,11 +62,11 @@ app.post(`/${COLLECTION}`, (req, res) => {
     )
     .catch(() => handleError(res, "Something wrong"));
 });
-//
-// app.patch(`/${COLLECTION}/:id`, (req, res) => {
-//     Product.updateOne({ _id: req.params.id }, { $set: req.body }) // findOne для получения одного элемента. ObjectId специальная обертка из Mongo
-//       .then((result) => {
-//         res.status(200).json(result);
-//       })
-//       .catch(() => handleError(res, "Something wrong"));
-// });
+
+app.patch(`/${COLLECTION}/:id`, (req, res) => {
+    Product.updateOne({ _id: req.params.id }, { $set: req.body }) // findOne для получения одного элемента. ObjectId специальная обертка из Mongo
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch(() => handleError(res, "Something wrong"));
+});
