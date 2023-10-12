@@ -37,30 +37,22 @@ app.get(`/${COLLECTION}`, (req, res) => {
     .catch(() => handleError(res, "Something wrong"));
 });
 
-// app.get(`/${COLLECTION}/:id`, (req, res) => {
-//   if (ObjectId.isValid(req.params.id)) {
-//     Product.findOne({ _id: new ObjectId(req.params.id) }) // findOne для получения одного элемента. ObjectId специальная обертка из Mongo
-//       .then((doc) => {
-//         res.status(200).json(doc);
-//       })
-//       .catch(() => handleError(res, "Something wrong"));
-//   } else {
-//     handleError(res, "Wrong id");
-//   }
-// });
-//
-// app.delete(`/${COLLECTION}/:id`, (req, res) => {
-//   if (ObjectId.isValid(req.params.id)) {
-//     Product.deleteOne({ _id: new ObjectId(req.params.id) }) // findOne для получения одного элемента. ObjectId специальная обертка из Mongo
-//       .then((result) => {
-//         res.status(200).json(result);
-//       })
-//       .catch(() => handleError(res, "Something wrong"));
-//   } else {
-//     handleError(res, "Wrong id");
-//   }
-// });
-//
+app.get(`/${COLLECTION}/:id`, (req, res) => {
+    Product.findOne({ _id: req.params.id }) // findOne для получения одного элемента.
+      .then((doc) => {
+        res.status(200).json(doc);
+      })
+      .catch(() => handleError(res, "Something wrong"));
+});
+
+app.delete(`/${COLLECTION}/:id`, (req, res) => {
+    Product.deleteOne({ _id: req.params.id }) // findOne для получения одного элемента.
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch(() => handleError(res, "Something wrong"));
+});
+
 // app.post(`/${COLLECTION}`, (req, res) => {
 //   Product.insertOne(req.body)
 //     .then((result) =>
