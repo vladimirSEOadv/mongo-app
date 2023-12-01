@@ -1,9 +1,7 @@
-const mongoose = require("mongoose");
 const express = require("express");
-const { json } = require("express");
-const { COLLECTION, PORT, URL } = require("./constant/constant");
+const mongoose = require("mongoose");
 const Product = require("./models/products");
-console.log("URL", URL);
+const { COLLECTION, PORT, URL } = require("./constant/constant");
 
 const app = express();
 // Мидлвар позволяющий читать данные из body запроса к серверу
@@ -38,23 +36,16 @@ app.get(`/${COLLECTION}`, (req, res) => {
 });
 
 app.get(`/${COLLECTION}/:id`, (req, res) => {
-    Product.findOne({ _id: req.params.id }) // findOne для получения одного элемента.
+    Product.findById(req.params.id ) // findOne для получения одного элемента.
       .then((doc) => {
         res.status(200).json(doc);
       })
       .catch(() => handleError(res, "Something wrong"));
 });
 
-app.delete(`/${COLLECTION}/:id`, (req, res) => {
-    Product.deleteOne({ _id: req.params.id }) // findOne для получения одного элемента.
-      .then((result) => {
-        res.status(200).json(result);
-      })
-      .catch(() => handleError(res, "Something wrong"));
-});
-
 app.post(`/${COLLECTION}`, (req, res) => {
-  Product.create(req.body)
+    const product = new Product(req.body)
+    product.save()
     .then((result) =>
       res
         .status(201) // 201 статус означающий успешное добавление
@@ -64,9 +55,17 @@ app.post(`/${COLLECTION}`, (req, res) => {
 });
 
 app.patch(`/${COLLECTION}/:id`, (req, res) => {
-    Product.updateOne({ _id: req.params.id }, { $set: req.body }) // findOne для получения одного элемента. ObjectId специальная обертка из Mongo
+    Product.findByIdAndUpdate(req.params.id , req.body)
       .then((result) => {
         res.status(200).json(result);
       })
       .catch(() => handleError(res, "Something wrong"));
+});
+
+app.delete(`/${COLLECTION}/:id`, (req, res) => {
+    Product.findByIdAndDelete(req.params.id )
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch(() => handleError(res, "Something wrong"));
 });
