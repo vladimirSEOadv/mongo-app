@@ -1,12 +1,8 @@
-const {PORT, COLLECTION} = require("../constant/constant");
+import { PORT, COLLECTION } from "../constant/constant.js";
 
-const showServerStartMessage = () => {
-    console.log(`
+export const showServerStartMessage = () => {
+  console.log(`
 Server started on port: ${PORT}
 Full path to database:
-http://localhost:${PORT}/${COLLECTION}`
-    );
-}
-
-
-module.exports = showServerStartMessage
+http://localhost:${PORT}/${COLLECTION}`);
+};

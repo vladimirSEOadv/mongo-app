@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -12,6 +12,7 @@ const productSchema = new Schema({
   img: String,
   avalible: { type: Boolean, require: true },
 });
+
 // Обязательные поля указываются так { type: String, require: true } Обязательное поле типа строка
 // Если поле не обязательное можно сразу указать тип. discount: Number,
 // Можно сразу выполнить валидацию передаваемых данных. { type: Number, min: 1, max: 99 }, Теперь в данное поле можно записать только число от 1 до 99
@@ -19,16 +20,12 @@ const productSchema = new Schema({
 // Если в поле лежит объект c полями name и id его можно указать так: category: { name: String, id: Number }
 // Если в поле лежит массив с объектами его можно указать так: category: [{ name: String, id: Number }]
 
-
 // Mongoose имеет одинаковый тип Number для чисел с плавающей запятой и обычных integers по этому можно не беспокоиться о том в каком именно формате в базе храниться числовое значение.
 
-
-const Product = mongoose.model("Product", productSchema);
+export const Product = mongoose.model("Product", productSchema);
 // Создание модели. Первым аргументом принимает название модели, вторым схему
 // Имя модели обязательно должно быть в единственном числе.
 // В данном примере это Product, так Монго будет искать коллекцию Products
-
-module.exports = Product;
 
 // Пример продукта
 // const product = {
