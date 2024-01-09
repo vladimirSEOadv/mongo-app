@@ -1,0 +1,555 @@
+{
+	"info": {
+		"_postman_id": "4f7b6e28-7766-44ff-abab-bb0cd4a3f4e8",
+		"name": "Mongo products database",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21221130"
+	},
+	"item": [
+		{
+			"name": "get all product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/products",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get product by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"The _id should be a non-empty string\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Price is a non-negative number\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData.price).to.be.a('number');\r",
+							"  pm.expect(responseData.price).to.be.at.least(0, \"Price should be a non-negative number\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Discount should be a number between 0 and 1\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData.discount).to.be.a('number');\r",
+							"  pm.expect(responseData.discount).to.be.greaterThanOrEqual(0, \"Discount should be greater than or equal to 0\");\r",
+							"  pm.expect(responseData.discount).to.be.lessThanOrEqual(1, \"Discount should be less than or equal to 1\");\r",
+							"});\r",
+							"\r",
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>Field</th>\r",
+							"        <th>Value</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    <tr>\r",
+							"        <td>_id</td>\r",
+							"        <td>{{response._id}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Title</td>\r",
+							"        <td>{{response.title}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Description</td>\r",
+							"        <td>{{response.description}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Category</td>\r",
+							"        <td>{{response.category}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Label</td>\r",
+							"        <td>{{response.label}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Price</td>\r",
+							"        <td>{{response.price}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Discount</td>\r",
+							"        <td>{{response.discount}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Image</td>\r",
+							"        <td>{{response.img}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Available</td>\r",
+							"        <td>{{response.avalible}}</td>\r",
+							"    </tr>\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()}\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate that the title is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/products/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "get product by id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/{{valid product id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"{{valid product id}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "post product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/products/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "post product exemple",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"delete me 2\",\r\n    \"description\": \"delete 2\",\r\n    \"category\": [\r\n        \"bedroom\"\r\n    ],\r\n    \"label\": 45,\r\n    \"price\": 49213,\r\n    \"discount\": 28617,\r\n    \"img\": \"1fa0987d-fb3c-47c4-b47d-d8cc99038ed2\",\r\n    \"avalible\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "path product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"The _id should be a non-empty string\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData._id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Price is a non-negative number\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData.price).to.be.a('number');\r",
+							"  pm.expect(responseData.price).to.be.at.least(0, \"Price should be a non-negative number\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Discount should be a number between 0 and 1\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData.discount).to.be.a('number');\r",
+							"  pm.expect(responseData.discount).to.be.greaterThanOrEqual(0, \"Discount should be greater than or equal to 0\");\r",
+							"  pm.expect(responseData.discount).to.be.lessThanOrEqual(1, \"Discount should be less than or equal to 1\");\r",
+							"});\r",
+							"\r",
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>Field</th>\r",
+							"        <th>Value</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    <tr>\r",
+							"        <td>_id</td>\r",
+							"        <td>{{response._id}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Title</td>\r",
+							"        <td>{{response.title}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Description</td>\r",
+							"        <td>{{response.description}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Category</td>\r",
+							"        <td>{{response.category}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Label</td>\r",
+							"        <td>{{response.label}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Price</td>\r",
+							"        <td>{{response.price}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Discount</td>\r",
+							"        <td>{{response.discount}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Image</td>\r",
+							"        <td>{{response.img}}</td>\r",
+							"    </tr>\r",
+							"    <tr>\r",
+							"        <td>Available</td>\r",
+							"        <td>{{response.avalible}}</td>\r",
+							"    </tr>\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()}\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate that the title is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"label\": 99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/products/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "path product",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"dont delete me\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products/6569fc84c49588664a71c5b3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"6569fc84c49588664a71c5b3"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "delete product by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/products/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "delete product by id exemple",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/6569fb87f6f816efdba513a9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"6569fb87f6f816efdba513a9"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3001/products/651d8de930a1d801f008213e",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/products/651d8de930a1d801f008213e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"products",
+						"651d8de930a1d801f008213e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/products/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"mollit\",\r\n    \"description\": \"eiusmod commodo proident\",\r\n    \"category\": [\r\n        \"bedroom\"\r\n    ],\r\n    \"label\": 45,\r\n    \"price\": 49213,\r\n    \"discount\": 28617,\r\n    \"img\": \"1fa0987d-fb3c-47c4-b47d-d8cc99038ed2\",\r\n    \"avalible\": false\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/products/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"voluptate\",\r\n    \"description\": \"deserunt nisi non\",\r\n    \"category\": [\r\n        \"bedroom\"\r\n    ],\r\n    \"label\": 40,\r\n    \"price\": 28534,\r\n    \"discount\": 25317,\r\n    \"img\": \"377e5013-c304-41de-a6dc-ad3a3783fd19\",\r\n    \"avalible\": true\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://cloud.mongodb.com/v2/64f6259278396676308d8cab#/metrics/host/ccd7535be2dfe24211ae1b508c73b870/status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cloud.mongodb.com/v2/64f6259278396676308d8cab#/metrics/host/ccd7535be2dfe24211ae1b508c73b870/status",
+					"protocol": "https",
+					"host": [
+						"cloud",
+						"mongodb",
+						"com"
+					],
+					"path": [
+						"v2",
+						"64f6259278396676308d8cab"
+					],
+					"hash": "/metrics/host/ccd7535be2dfe24211ae1b508c73b870/status"
+				}
+			},
+			"response": []
+		}
+	]
+}
